@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- on appelle le vocabulaire book -->
+<book version="5.1" xml:lang="fr" 
+    xmlns="https://tdg.docbook.org/tdg/5.1/" 
+    xmlns:xi="https://www.w3.org/TR/xinclude/" 
+    xmlns:dc="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/">
+    <title>Chapitre 4</title>
+</book>

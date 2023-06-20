@@ -1,0 +1,131 @@
+<html:html 
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    >
+    <html:head>
+        <html:title>Espaces de noms</html:title>
+    </html:head>
+    <html:body>
+        ...
+        <mml:math>
+            <mml:apply>
+                <mml:eq>
+                    ....
+                </mml:eq>
+            </mml:apply>
+        </mml:math>
+    </html:body>
+</html:html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Espaces de noms</title>
+    </head>
+    <body>
+        ...
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq>
+                    ....
+                </eq>
+            </apply>
+        </math>
+    </body>
+</html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <!-- L'espace de nom réfère maintenant au vocabulaire XHTML -->
+    <head>
+        <title>Espaces de noms</title>
+    </head>
+    <body>
+        ...
+        <name xmlns="">
+        <!-- 
+            en déclarant l'attribut xmlns pour la balise name à 'vide' name et les balises qu'il contient ne se réfèreront plus au vocabulaire XHTML 
+        -->
+            <firstName>Gaston</firstName>
+            <lastName>Lagaffe</lastName>
+        </name>
+    </body>
+</html>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE list SYSTEM "valide.dtd">
+<tns:list xmlns:tns="http://www.omega-one.org/~carton/">
+    <tns:item>Item 1</tns:item>
+    <tns:item>Item 2</tns:item>
+</tns:list>
+
+<!-- valide.dtd -->
+<!ELEMENT tns:list (tns:item)+ >
+<!ATTLIST tns:list xlmns:tns CDATA #REQUIRED>
+    <!ELEMENT tns:item (#PCDATA)>
+
+<!-- 
+XML
+    http://www.w3.org/XML/1998/namespace 
+XInclude
+    http://www.w3.org/2001/XInclude 
+XLink
+    http://www.w3.org/1999/xlink 
+MathML
+    http://www.w3.org/1998/Math/MathML 
+XHTML
+    http://www.w3.org/1999/xhtml 
+SVG
+    http://www.w3.org/2000/svg 
+Schémas
+    http://www.w3.org/2001/XMLSchema 
+Instances de schémas
+    http://www.w3.org/2001/XMLSchema-instance 
+Schematron
+    http://purl.oclc.org/dsdl/schematron 
+XSLT
+    http://www.w3.org/1999/XSL/Transform 
+XSL-FO
+    http://www.w3.org/1999/XSL/Format 
+DocBook
+    http://docbook.org/ns/docbook 
+Dublin Core
+    http://purl.org/dc/elements/1.1/ 
+
+
+-->
+
+<!-- 
+    Les DTD  
+    Document Type Definition
+-->
+<!-- Syntaxe -->
+<!ELEMENT balise (contenu)>
+
+<contact>
+    <nom>Durand</nom>
+</contact>
+
+<!-- balise contenant une autre balise -->
+<!ELEMENT contact (nom)>
+<!-- pour la balise nom -->
+<!ELEMENT nom (#PCDATA)>
+
+<!-- si la balise est vide -->
+<!ELEMENT nom EMPTY>
+
+<!-- Si la balise peut contenir des données ou non -->
+<!ELEMENT nom ANY>
+
+<!-- Pour le xml suivant : -->
+<rolodex>
+    <contact>
+        <nom>Durand</nom>
+        <prenom>Jean</prenom>
+        <age>42</age>
+    </contact>
+    <contact>
+        <nom>ACME Inc.</nom>
+        <prenom></prenom>
+        <age></age>
+    </contact>
+</rolodex>
+

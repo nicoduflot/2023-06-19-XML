@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Déclaration des entités internes -->
+
+<!-- Déclaration des éléments -->
+<garage>
+    <voiture>
+        <marque></marque>
+    </voiture>
+    <voiture>
+        <marque></marque>
+    </voiture>
+    <voiture>
+        <marque></marque>
+    </voiture>
+</garage>

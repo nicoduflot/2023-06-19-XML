@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+    prologue : 
+        va servir à déterminer que le fichier est un document XML et quelle est la version utilisée 
+    Trois attributs : 
+        - version : version du XML
+        - encoding : (encodage de caractères) norme utilisée pour le codage machine des caractères
+        - standalone : (autonomie) si les dtd ou xsd (schémas qui norme notre XML) sont écrits dans la page (yes) ou sur un fichier externe (no)
+-->
+<!-- 
+    Commentaire en XML : les mêmes que ceux utilisés en HTML
+-->
+<rolodex><!-- Élément racine -->
+    <!-- une entrée du rolodex -->
+    <!-- Jean Durand, ACME Inc. CEO -->
+    <contact type="Physique">
+        <nom>Durand</nom>
+        <prenom>Jean</prenom>
+        <adresses>
+            <adresse type="facturation">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>1</numero>
+                <voie type="Rue">Rue de la paix</voie>
+                <codepostal>75001</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="personnel">jean_durand@yahoo.fr</email>
+            <email type="professionel">jdurand@acme.com</email>
+        </emails>
+    </contact>
+    <contact type="Morale">
+        <nom>ACME Inc.</nom>
+        <adresses>
+            <adresse type="facturation">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>14</numero>
+                <voie type="Place">Place des États-unis</voie>
+                <codepostal>75016</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="professionel">contact@acme.com</email>
+            <email type="professionel">sav@acme.com</email>
+            <email type="professionel">evenements@acme.com</email>
+        </emails>
+    </contact>
+</rolodex>

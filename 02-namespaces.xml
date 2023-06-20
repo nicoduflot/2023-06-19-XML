@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- on appelle le vocabulaire book -->
+<book version="5.1" xml:lang="fr" 
+    xmlns="https://tdg.docbook.org/tdg/5.1/" 
+    xmlns:xi="https://www.w3.org/TR/xinclude/" 
+    xmlns:dc="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/">
+    <!-- Titre du document, comme le vocabulaire docbook est défini par défaut, par de préfixe -->
+    <title>Pourquoi j'ai mangé mon père</title>
+    <!--  -->
+    <dc:description>
+        <dc:title>Pourquoi j'ai mangé mon père</dc:title>
+        <dc:creator>Roy Lewis</dc:creator>
+        <dc:date>1975-01-01</dc:date>
+        <dc:identifier>urn:isbn:2266084372</dc:identifier>
+    </dc:description>
+
+    <!-- 
+        Plutôt que d'écrire des extrait de chapitre dans le document présent, on va les inclure depuis des documents tiers
+    -->
+    <xi:include href="./docbook/introduction.xml" parse="xml" />
+    <xi:include href="./docbook/chapitre01.xml" parse="xml" />
+    <xi:include href="./docbook/chapitre02.xml" parse="xml" />
+    <xi:include href="./docbook/chapitre03.xml" parse="xml" />
+    <xi:include href="./docbook/chapitre04.xml" parse="xml" />
+</book>
