@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE rolodex [
+    <!ELEMENT rolodex (contact+)>
+        <!ELEMENT contact (nom, prenom, age)>
+            <!ELEMENT nom (#PCDATA)>
+            <!ELEMENT prenom (#PCDATA)>
+            <!ELEMENT age (#PCDATA)>
+]>
+
+<rolodex>
+    <contact>
+        <nom>Durand</nom>
+        <prenom>Jean</prenom>
+        <age>42</age>
+    </contact>
+    <contact>
+        <nom>ACME Inc.</nom>
+        <prenom></prenom>
+        <age></age>
+    </contact>
+</rolodex>

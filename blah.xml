@@ -58,7 +58,7 @@
 </tns:list>
 
 <!-- valide.dtd -->
-<!ELEMENT tns:list (tns:item)+ >
+<!ELEMENT tns:list (tns:item+) >
 <!ATTLIST tns:list xlmns:tns CDATA #REQUIRED>
     <!ELEMENT tns:item (#PCDATA)>
 
@@ -99,22 +99,21 @@ Dublin Core
 -->
 <!-- Syntaxe -->
 <!ELEMENT balise (contenu)>
-
 <contact>
     <nom>Durand</nom>
 </contact>
-
 <!-- balise contenant une autre balise -->
 <!ELEMENT contact (nom)>
 <!-- pour la balise nom -->
 <!ELEMENT nom (#PCDATA)>
-
-<!-- si la balise est vide -->
+<!-- si la balise est vide de données -->
 <!ELEMENT nom EMPTY>
-
+<!-- exemple -->
+<console src="test" />
+<!ELEMENT console EMPTY>
+    <!ATTLIST console src CDATA>
 <!-- Si la balise peut contenir des données ou non -->
 <!ELEMENT nom ANY>
-
 <!-- Pour le xml suivant : -->
 <rolodex>
     <contact>
@@ -129,3 +128,156 @@ Dublin Core
     </contact>
 </rolodex>
 
+<!ELEMENT rolodex (contact+)>
+    <!ELEMENT contact (nom, prenom, age)>
+        <!ELEMENT nom (#PCDATA)>
+        <!ELEMENT prenom (#PCDATA)>
+        <!ELEMENT age (#PCDATA)>
+
+<!-- IL est possible d'avoir plusieurs contenus possible dans une balise, avec une liste de choix -->
+
+<!ELEMENT rolodex (contact+)>
+    <!ELEMENT contact (nom | prenom, age)>
+        <!-- ici le xml doit avoir obligatoirement soit nom soit prénom et age -->
+        <!ELEMENT nom (#PCDATA)>
+        <!ELEMENT prenom (#PCDATA)>
+        <!ELEMENT age (#PCDATA)>
+
+<!-- Balises optionnelles -->
+<!ELEMENT contact (nom, prenom?, adresses, emails)>
+<!-- contact doit contenir une balise nom, peut ou non contenir une balise prenom, et doit contenir une balise adresses etemails -->
+
+<!-- Balises opitionnelles répétées -->
+<!ELEMENT adresses (adresse*)>
+<!-- mon élément adresses peut contenir 0 ou plusieurs élément adresse -->
+<!-- Balises obligatoires répétées-->
+<!ELEMENT rolodex (contact+)>
+<!-- L'élément rolodex doit contenir au moins un ou plus d'élément contact -->
+
+<!-- Les attributs -->
+<!ELEMENT balise (contenu)>
+    <!ATTLIST balise attr >
+
+<!-- Identifiant unique -->
+<!ATTLIST contact numero ID #REQUIRED>
+<!-- Balise contact possède un attribut ID qui doit être unique et obligatoire -->
+<contact numero="n1"></contact>
+<!-- 
+    propriété de présence des attributs 
+    Forme                   Signification
+    #IMPLIED                Attribut Facultatif
+    #REQUIRED               Attribut obligatoire
+    #FIXED "valeur"         Attribut avec cette valeur, non modifiable
+    "valeur"                Attribut a cette valeur par défaut et elle est modifible
+-->
+
+<!-- Attribut ayant pour référence (qui fait référence à) un attribut à valeur unique -->
+<contact personne="physique" numero="n1"></contact>
+    <!ATTLIST contact numero ID #REQUIRED>
+
+<adresse userAdresse="n1"></adresse>
+    <!ATTLIST adresse userAdresse IDREF #REQUIRED>
+
+<!-- attribut avec une valeur par défaut -->
+<!ATTLIST contact personne (physique | morale) "physique" >
+<!-- valide -->
+<contact personne="physique"></contact>
+<!-- valide -->
+<contact personne="morale"></contact>
+<!-- invalide -->
+<contact personne="toto"></contact>
+<!-- valide mais par défaut considéré comme physique -->
+<contact personne=""></contact>
+
+<!-- 
+    les constantes : si un attribut est présent dans la balise, il doit avoir la valeur définie.
+    mais si l'attribut n'est pas présent, il aura par défaut la valeur de la constante
+-->
+
+<!ATTLIST prix devise CDATA "euro">
+<prix devise="euro">12</prix>
+<prix>12</prix>
+<!-- ici la devise sera euro et rien d'autre -->
+
+<prix devise="USD">12</prix> <!-- invalide -->
+
+<!-- 
+    Les entités 
+    se sont des alias qui permettent de réutiliser des informations dans le document xml ou dans les DTD
+        - générales
+        - paramètres
+        - externes
+-->
+
+<!-- 
+    entité générale 
+    associe une alias a une information dans le document
+-->
+
+<!ENTITY dacia "Dacia">
+<!ENTITY renault "Renault">
+<!ENTITY citroen "Citroën">
+
+<voiture>
+    <marque>&dacia</marque>
+</voiture>
+<voiture>
+    <marque>&renault</marque>
+</voiture>
+<voiture>
+    <marque>&citroen</marque>
+</voiture>
+
+<!-- le xml sera lu en équivalent -->
+<voiture>
+    <marque>Dacia</marque>
+</voiture>
+<voiture>
+    <marque>Renault</marque>
+</voiture>
+<voiture>
+    <marque>Citroën</marque>
+</voiture>
+
+<!-- 
+    entité paramètre 
+    N'apparaissent que dans les DTD
+    Elles associent un alias à une partie de la déclaration dans les DTD
+-->
+<voiture marque="Dacia" />
+<voiture marque="Renault" />
+<voiture marque="Citroën" />
+<!-- pour l'attribut marque -->
+<!ATTLIST voiture marque (Dacia|Renault|Citroën) #REQUIRED>
+
+<!-- Avec les entités -->
+<!ENTITY % listeMarques "marque (Dacia|Renault|Citroën) #REQUIRED">
+<!ATTLIST voiture %listeMarques>
+
+<!-- 
+    Entité externe 
+    Permetttent de faire référence, comme les entités générales, à des informations a utiliser dans le document 
+    xml, mais elle sont écrites et déclarées dans un fichier externe
+-->
+
+<!ENTITY dacia SYSTEM "dacia.xml">
+<!ENTITY renault SYSTEM "renault.xml">
+<!ENTITY citroen SYSTEM "citroen.xml">
+
+<!-- voitures.xml -->
+<voiture>
+    &dacia
+</voiture>
+<voiture>
+    &renault
+</voiture>
+<voiture>
+    &citroen
+</voiture>
+
+<!-- dacia.xml -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE marque[
+    <!ELEMENT marque (#PCDATA)>
+]>
+<marque>Dacia</marque>
