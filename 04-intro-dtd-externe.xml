@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+    ici standalone est à no => la définitions des dtd est faite sur un fichier externe
+-->
+<!DOCTYPE rolodex SYSTEM "04-intro-dtd-externe.dtd" >
+<rolodex>
+    <!-- Jean Durand, ACME Inc. CEO -->
+    <contact personne="physique" numero="n1">
+        <nom>Durand</nom>
+        <prenom>
+            Jean
+            <surnom>Dudu</surnom>
+        </prenom>
+        <prenom>Marc</prenom>
+        <adresses>
+            <adresse type="facturation" userAdresse="n1">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codePostal>75015</codePostal>
+                <ville>Paris</ville>
+                <pays>FRANCE</pays>
+            </adresse>
+            <adresse type="livraison" userAdresse="n1">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codePostal>75015</codePostal>
+                <ville>Paris</ville>
+                <pays>FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="personnel">jean_durand@yahoo.fr</email>
+            <email type="professionnel">jdurand@acme.com</email>
+        </emails>
+    </contact>
+    <!-- ACME Inc. -->
+    <contact personne="morale" numero="n2">
+        <nom>ACME Inc.</nom>
+        <adresses>
+            <adresse type="facturation" userAdresse="n1">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codePostal>75015</codePostal>
+                <ville>Paris</ville>
+                <pays>FRANCE</pays>
+            </adresse>
+            <adresse type="livraison" userAdresse="n1">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codePostal>75015</codePostal>
+                <ville>Paris</ville>
+                <pays>FRANCE</pays>
+            </adresse>
+            <adresse type="livraison" userAdresse="n1">
+                <numero>14</numero>
+                <voie type="place">Place des États-unis</voie>
+                <codePostal>75016</codePostal>
+                <ville>Paris</ville>
+                <pays>FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="professionnel">contact@acme.com</email>
+            <email type="professionnel">sav@acme.com</email>
+            <email type="professionnel">evenenement@acme.com</email>
+        </emails>
+    </contact>
+</rolodex>

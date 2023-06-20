@@ -4,14 +4,14 @@
     <!ENTITY dacia "Dacia">
     <!ENTITY renault "Renault">
     <!ENTITY citroen "Citroën">
-    <!ENTITY % listeMarque "(pioneer|alpine)  #REQUIRED">
+    <!-- il n'est pas posssible d'avoir des entités paramètres directement dans les déclarations dtd sur le même fichier -->
 
     <!-- Déclaration des éléments -->
     <!ELEMENT garage (voiture*)>
         <!ELEMENT voiture (marque, autoradio)*>
             <!ELEMENT marque (#PCDATA)>
             <!ELEMENT autoradio EMPTY>
-                <!ATTLIST autoradio %listeMarque;>
+                <!ATTLIST autoradio marque (pioneer | alpine) >
 ]>
 
 <garage>
