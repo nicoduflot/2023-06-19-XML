@@ -1,15 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Déclaration des entités internes -->
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE garage[
+    <!-- Déclaration des entités internes -->
+    <!ENTITY dacia "Dacia">
+    <!ENTITY renault "Renault">
+    <!ENTITY citroen "Citroën">
+    <!ENTITY % listeMarque "(pioneer|alpine)  #REQUIRED">
 
-<!-- Déclaration des éléments -->
+    <!-- Déclaration des éléments -->
+    <!ELEMENT garage (voiture*)>
+        <!ELEMENT voiture (marque, autoradio)*>
+            <!ELEMENT marque (#PCDATA)>
+            <!ELEMENT autoradio EMPTY>
+                <!ATTLIST autoradio %listeMarque;>
+]>
+
 <garage>
     <voiture>
-        <marque></marque>
+        <marque>&dacia</marque>
+        <autoradio modele="pionner" />
     </voiture>
     <voiture>
-        <marque></marque>
+        <marque>&renault</marque>
     </voiture>
     <voiture>
-        <marque></marque>
+        <marque>&citroen</marque>
+    </voiture>
+    <voiture>
+        <marque>Hyundai</marque>
     </voiture>
 </garage>

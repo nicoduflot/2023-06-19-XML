@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE garage [
+    <!-- Déclaration des entités externes -->
+    <!ENTITY % dacia "dacia.xml">
+    <!ENTITY % renault "renault.xml">
+    <!ENTITY % citroen "citroen.xml">
+
+    <!-- Déclaration des éléments -->
+    <!ELEMENT garage (voiture*)>
+        <!ELEMENT voiture (#PCDATA | portes)*>
+            <!ELEMENT portes (#PCDATA)>
+]>
+
+<garage>
+    <voiture>
+        %dacia;
+        <portes>5</portes>
+        <portes>3</portes>
+    </voiture>
+    <voiture>
+        %renault;
+    </voiture>
+    <voiture>
+        %citroen;
+        <portes>3</portes>
+    </voiture>
+</garage>
