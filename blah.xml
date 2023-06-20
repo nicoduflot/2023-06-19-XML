@@ -435,8 +435,11 @@ Dublin Core
 <!-- par défaut -->
 <xsd:attribute name="type" type="xsd:string" default="physique" />
 <!-- Constante -->
-<prix devise="euro">23.5</prix>
 <xsd:attribute name="devise" type="xsd:string" fixed="euro" />
+<!-- valide -->
+<prix devise="euro">23.5</prix>
+<!-- valide -->
+<prix devise="">23.5</prix>
 
 <!-- l'attribut type de personne doit être présent dans la balise -->
 <xsd:attribute name="type" type="xsd:string" use="required" />
@@ -444,3 +447,432 @@ Dublin Core
 <personne type="physique"></personne>
 <!-- invalide -->
 <personne type=""></personne>
+
+<!-- les types de valeur pour les éléments et les attributs -->
+<!-- string -->
+<xsd:element name="string" type="xsd:string" />
+<string>Karamasov</string>
+<string>Une phrase choc</string>
+<string>&amp;</string>
+
+<!-- language -->
+<xsd:element name="langue" type="xsd:language" />
+<langue>fr-CA</langue>
+<langue>fr-FR</langue>
+<langue>en</langue>
+<langue>en-US</langue>
+<langue>en-GB</langue>
+<langue>en-CA</langue>
+
+<!-- nmtoken -->
+<xsd:attribute name="myToken" type="xsd:NMTOKEN" />
+<balise myToken="A:1_B-3.2">Contenu de la balise</balise>
+
+<!-- nmtokens -->
+<xsd:attribute name="myTokens" type="xsd:NMTOKENS" />
+<balise myToken="A:1_B-3.2 AZERTY 123456">Contenu de la balise</balise>
+
+<!-- ID IDREF -->
+<xsd:attribute name="num" type="ID" />
+<xsd:attribute name="enfant" type="IDREF" />
+<personne num="P1">Paul</personne>
+<personne num="P2">JP</personne>
+<personne num="P3" enfant="P1">Martin</personne>
+<personne num="P4" enfant="P2">Camille</personne>
+
+<!-- ID IDREFS -->
+<xsd:attribute name="num" type="ID" />
+<xsd:attribute name="enfant" type="IDREFS" />
+<personne num="P0" enfant="">Clotaire</personne>
+<personne num="P1" enfant="P0">Paul</personne>
+<personne num="P2" enfant="">JP</personne>
+<personne num="P3" enfant="">Marie</personne>
+<personne num="P4" enfant="P0">Astrid</personne>
+<personne num="P5" enfant="P1 P3">Martin</personne>
+<personne num="P6" enfant="P2 P4">Camille</personne>
+
+<!-- ENTITY -->
+<xsd:attribute name="marque" type="xsd:ENTITY" />
+<!ENTITY samsung "Samsung">
+<!ENTITY apple "Apple">
+<telephone marque="apple">iphone</telephone>
+<telephone marque="samsung">Galaxy SII</telephone>
+
+<!-- ENTITIES -->
+<xsd:attribute name="marque" type="xsd:ENTITIES" />
+<!ENTITY samsung "Samsung">
+<!ENTITY apple "Apple">
+<telephone marque="apple samsung"></telephone>
+
+<!-- les éléments et les types complexes -->
+<!-- personne :  élément complexe -->
+<personne>
+    <!-- élément simple -->
+    <nom>Robert</nom>
+    <!-- élément simple -->
+    <prenom>Axel</prenom>
+</personne>
+<!-- élément complexe car contient un attribut -->
+<personne type="physique">Axel Robert</personne>
+
+<personne attr="test">
+    <!-- contient d'autres balises -->
+</personne>
+<xsd:element name="personne">
+    <xsd:complexType>
+        <!-- les autres balises et éléments (les attributs par exemple )de la balise personne -->
+    </xsd:complexType>
+</xsd:element>
+
+<!-- 
+    éléments complexes avec du contenus simple
+-->
+<prix devise="euro">35</prix>
+<voiture marque="Renault" moteur="Essence">Clio</voiture>
+
+<!-- élément prix -->
+<xsd:element name="prix">
+    <!-- indiquer qu'il s'agit d'un élément complexe -->
+    <xsd:complexType>
+        <!-- préciser que son contenu est simple -->
+        <xsd:simpleContent>
+            <!-- on déclare le contenu simple de la balise, avec une extension -->
+            <xsd:extension base="xsd:positiveInteger">
+                <!-- déclaration de l'attribut devise de la balise prix -->
+                <xsd:attribute name="devise" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- élément voiture -->
+<xsd:element name="voiture">
+    <xsd:complexType>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="marque" type="xsd:string"/>
+                <xsd:attribute name="moteur" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- balise contenant d'autres balises -->
+<personne type="physique">
+    <nom>Robert</nom>
+    <prenom>Axel</prenom>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="nom" type="xsd:string"/>
+            <xsd:element name="prenom" type="xsd:string"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="string"/>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- ATTENTION, séquence valide les balise déclarée dans l'odre de déclaration -->
+<personne type="physique">
+    <prenom>Axel</prenom>
+    <nom>Robert</nom>
+</personne>
+
+<!-- pour que l'ordre das balises dans le xml n'ai pas d'importance, on utilise all au lieu de séquance -->
+<xsd:element name="personne">
+    <xsd:complexType>
+        <xsd:all>
+            <xsd:element name="nom" type="xsd:string"/>
+            <xsd:element name="prenom" type="xsd:string"/>
+        </xsd:all>
+        <xsd:attribute name="type" type="string"/>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- 
+     les balises déclarées dans le xsd peuvent ne pas être toutes présentes, 
+     le contenu est préparé par une liste prédéfinie
+-->
+<personne type="physique">
+    <prenom>Axel</prenom>
+    <nom>Robert</nom>
+</personne>
+<personne type="morale">
+    <nom>GloboCorp Inc.</nom>
+</personne>
+<personne type="physique">
+    <prenom>Jéjé</prenom>
+</personne>
+<personne type="physique"></personne>
+
+<!-- avec les mots clef choice, il est possible de déclarer des balise facultatives -->
+<xsd:element name="personne">
+    <xsd:complexType>
+        <xsd:choice>
+            <xsd:element name="nom" type="xsd:string"/>
+            <xsd:element name="prenom" type="xsd:string"/>
+        </xsd:choice>
+        <xsd:attribute name="type" type="string"/>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- un type complexe dans un type complexe -->
+<personne>
+    <identite>
+        <nom>VANCE</nom>
+        <prenom>Jack</prenom>
+    </identite>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="identite">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="nom" type="xsd:string" />
+                        <xsd:element name="prenom" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- contenu mixte -->
+<balise1> Ceci est une chaîne de caractère <balise2>20</balise2> 7.5</balise1>
+
+<facture>L'acheteur <acheteur>Brendan L. Mulligan</acheteur>, doit payer la somme de <somme>1000</somme> euros</facture>
+<xsd:element name="facture">
+    <xsd:complexType mixed="true">
+        <xsd:sequence>
+            <xsd:sequence>
+                <xsd:element name="acheteur" type="xsd:string" />
+                <xsd:element name="somme" type="xsd:float" />
+            </xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- nb d'occurences : le nombre minimal et maximal d'occurence -->
+
+<personne type="physique">
+    <nom>Robert</nom>
+    <prenom>Axel</prenom>
+    <prenom>Maurice</prenom>
+    <prenom>Marcel</prenom>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="nom" type="xsd:string" />
+            <!-- on peut écrire de 1 à 3 prénoms -->
+            <xsd:element name="prenom" type="xsd:string" 
+                minOccurs="1" 
+                maxOccurs="3" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="string"/>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- de 0 à x éléments -->
+<personne type="physique">
+    <nom>Robert</nom>
+    <prenom>Axel</prenom>
+    <prenom>Maurice</prenom>
+    <prenom>Marcel</prenom>
+    <prenom>Marcel</prenom>
+    <prenom>Marcel</prenom>
+</personne>
+<xsd:element name="personne">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="nom" type="xsd:string" />
+            <!-- on peut écrire de 1 à 3 prénoms -->
+            <xsd:element name="prenom" type="xsd:string" 
+                minOccurs="0" 
+                maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="string"/>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- 
+    Réutiliser les types
+    simplifier l'écriture et la lecture d'un schéma
+-->
+<banque>
+    <!-- 1er client -->
+    <client>
+        <identite>
+            <nom>ADAMS</nom>
+            <prenom>Douglas</prenom>
+        </identite>
+        <!-- liste des comptes bancaires du client -->
+        <comptes>
+            <compteInteret interet="1.5">
+                <montant>2500</montant>
+            </compteInteret>
+            <compte>
+                <montant>4200</montant>
+            </compte>
+        </comptes>
+    </client>
+</banque>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="banque">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="client" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="identite">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="nom" type="xsd:string" />
+                                        <xsd:element name="prenom" type="xsd:string" />
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="comptes">
+                                <xsd:complexType>
+                                    <xsd:choice>
+                                        <xsd:element name="livretA">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="montant" type="xsd:double" />
+                                                </xsd:sequence>
+                                                <xsd:attribute name="interet" type="xsd:float"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="courant">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="montant" type="xsd:double" />
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:choice>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+
+<!-- 
+    les xsd devient très difficile à lire (et à écrire !), on peut le découper  
+    en morceaux réutilisables pour les appliquer et rendre le xsd plus lisible
+    on utilisera le mot-clef ref
+-->
+
+<!-- sans ref -->
+<xsd:element name="identite">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="nom" type="xsd:string" />
+            <xsd:element name="prenom" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- avec la ref -->
+
+
+<!-- déclaration globale d'éléments -->
+<xsd:element name="nom" type="xsd:string" />
+<xsd:element name="prenom" type="xsd:string" />
+
+<!-- déclaration de l'élément identité -->
+<xsd:element name="identite">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="nom" /><!-- ref à l'élément délcarés en global -->
+            <xsd:element ref="prenom" /><!-- ref à l'élément délcarés en global -->
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- 
+on peut créer ses propres types car ici, livret A et compte courant ont le même format 
+on déclare donc ses propre types
+ex déclaration d'un type simple
+____________________________________
+<xsd:simpleType name="mon_type_perso">
+    <xsd:restriction base="mon_type_perso">
+        ...
+    </xsd:restriction>
+</xsd:simpleType>
+
+utilisation du type simple
+____________________________________
+<xsd:element name="mon_nom" type="mon_type_perso" />
+
+
+déclaration type complexe
+____________________________________
+<xsd:complexType name="mon_type_perso">
+
+</xsd:complexType>
+
+utilisation du type complexe
+____________________________________
+<xsd:element name="mon_nom" type="mon_type_perso" />
+-->
+
+<!-- création d'un type compte général -->
+<xsd:element name="montant" type="xsd:double" />
+
+<xsd:complexType name="compte">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="montant" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:complexTypeom>
+
+<!-- extension du type compte courant en compte avec intérêts -->
+<xsd:complexType name="compteInteret">
+    <xsd:complexContent>
+        <xsd:extension base="compte">
+            <xsd:attribute name="interet" type="xsd:float" />
+        </xsd:extension>
+    </xsd:complexContent>
+</xsd:complexTypeom>
+
+<!-- utilisation des types créés pour la déclaration de comptes -->
+<xsd:element name="comptes">
+    <xsd:complexType>
+        <xsd:choice>
+            <xsd:element name="livretA" type="compteInteret" />
+            <xsd:element name="courant" type="compte" />
+        </xsd:choice>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- declaration de la partie client qui contient les autre parties déjà déclarées -->
+<xsd:element name="client">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="identite" />
+            <xsd:element ref="comptes" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- utilisation dans le schéma finald de tous les éléments déclarés -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="banque">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="client" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
