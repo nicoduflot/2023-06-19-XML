@@ -1,0 +1,22 @@
+<!ELEMENT rolodex (contact*)>
+    <!ELEMENT contact (nom, prenom*, adresses, emails)>
+    <!ATTLIST contact personne (physique | morale) "physique">
+    <!ATTLIST contact numero ID #REQUIRED>
+        <!ELEMENT nom (#PCDATA)>
+        <!ELEMENT prenom (#PCDATA | surnom)*>
+            <!ELEMENT surnom (#PCDATA)>
+        <!ELEMENT adresses (adresse*)>
+            <!ELEMENT adresse (numero, voie, codePostal, ville, pays)>
+            <!ATTLIST adresse type (facturation | livraison) #REQUIRED>
+            <!-- si une donnée est indiquée par défaut, l'attribut n'a pas besoin d'être obligatoire -->
+            <!-- <!ATTLIST adresse type (facturation | livraison) "facturation"> -->
+            <!ATTLIST adresse userAdresse IDREF #REQUIRED>
+                <!ELEMENT numero (#PCDATA)>
+                <!ELEMENT voie (#PCDATA)>
+                <!ATTLIST voie type (rue | avenue | boulevard | impasse | place | faubourg | route | chemin | voie) #REQUIRED>
+                <!ELEMENT codePostal (#PCDATA)>
+                <!ELEMENT ville (#PCDATA)>
+                <!ELEMENT pays (#PCDATA)>
+        <!ELEMENT emails (email+)>
+            <!ELEMENT email (#PCDATA)>
+            <!ATTLIST email type (personnel | professionnel) "personnel">

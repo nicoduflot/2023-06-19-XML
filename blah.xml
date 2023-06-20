@@ -281,3 +281,166 @@ Dublin Core
     <!ELEMENT marque (#PCDATA)>
 ]>
 <marque>Dacia</marque>
+
+<!-- 
+    Les Schémas XML (XSD) 
+    Pourquoi ? 
+    les DTD ne sont pas au format XML, c'est un nouveau langage avec sa propre syntaxe et ses règles.
+    => il faut l'utiliser avec xml et il se peut que certaines API liront le XML et les DTD de façons différentes?
+    Enfin, on ne peut pas typer les données, on indique juste qu'une balise contient ou non des données mais impossible de préciser si c'est une chaîne de caractère, un nombre, etc.
+    
+    Le xsd permet de typer les donnée, il est plus précis sur l'écriture des contraintes, il s'écrit en xml, 
+    se stocke dans un fichier externe ayant l'extension .xsd, il utilise comme les fichiers xml un prologue 
+    dont le nom de l'élément racine nous est imposé
+-->
+
+<!-- prologue d'un fichier .xsd -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- élément racine -->
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema">
+</xsd:schema>
+
+<!-- on déclare un espace de nom avec xmlns:xsd, de fait, tous les éléments du xsd seront préfixés par xsd: -->
+
+<!-- 
+    il faut ensuite rattacher ce fichier de schéma au xml concerné par le xsd
+    il faut déclarer l'attachement du fichier dans la balise racine du xml
+    mais pour appeler ce fichier il faut utiliser le vocabulaire schema-instance
+
+
+-->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:Contact test.xsd" xsi:schemaLocation="urn:Voiture testVoiture.xsd">
+    <!-- schemaLocation déclare un xsd décrivant un espace de nom -->
+    <Contact:rolodex xmlns:Contact="urn:Contact">
+        <Contact:nom>
+            Durant
+        </Contact:nom>²²²
+    </Contact:rolodex>
+    <Voiture:garage xmlns:Voiture="urn:Voiture">
+        <Voiture:voiture>
+            <Voiture:marque>
+                Opel
+            </Voiture:marque>
+        </Voiture:voiture>
+    </Voiture:garage>
+</agenda>
+
+<!-- xsd ne décrivant pas d'espace de nom -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="test-et-testVoiture.xsd">
+    <!-- schemaLocation déclare un xsd ne décrivant pas un espace de nom -->
+    <rolodex>
+        <nom>
+            Durant
+        </nom>
+    </rolodex>
+    <garage>
+        <voiture>
+            <marque>
+                Opel
+            </marque>
+        </voiture>
+    </garage>
+</agenda>
+
+<!--
+    Déclarations d'éléments
+    Éléments simples : un élément qui ne contient qu'une valeur dont le type est dit simple, il ne contient pas d'autres éléments
+
+    une balise sans attribut, un attribut est un élément simple si le type de donnée qu'il contient est simple
+-->
+<!-- Ni attribut, ni aucun autre élément et donnée de type simple => élément simple -->
+<nom>Duflot</nom>
+
+<!-- Contient un attribut => élément complexe -->
+<!-- l'attribut type est lui un élément simple -->
+<personne type="physique">Nicolas Duflot</personne>
+
+<!-- Élément complexe (contient d'autres balises) -->
+<personne>
+    <!-- Élement complexe (contient un attribut)-->
+    <nom type="usage">Duflot</nom>
+    <!-- Élement complexe (contient un attribut)-->
+    <nom type="jeune-fille">Duflot</nom>
+    <!-- Élement simple ( ne contient ni attribut ni d'autres balises )-->
+    <prenom>Tiphaine</prenom>
+</personne>
+
+<!-- 
+    Déclarer une balise en élément simple 
+    mot clef : element sans oublier le namespace xsd:
+-->
+<nom>Duflot</nom>
+<prenom>Nicolas</prenom>
+<age>43</age>
+
+<!-- en xsd -->
+<xsd:element name="nom" type="xsd:string" />
+<xsd:element name="prenom" type="xsd:string" />
+<xsd:element name="age" type="xsd:int" />
+
+<!-- valeurs parr défaut -->
+<xsd:element name="nom" type="xsd:string" default="Doe" />
+<xsd:element name="prenom" type="xsd:string" default="John" />
+<xsd:element name="age" type="xsd:int" />
+<!-- des exemples de xml valides avec ce schéma -->
+<!-- ex 1 -->
+<nom>Duflot</nom>
+<prenom>Nicolas</prenom>
+<age>43</age>
+<!-- ex 2 -->
+<nom></nom><!-- valeur par défaut "Doe"-->
+<prenom>Nicolas</prenom>
+<age>43</age>
+<!-- ex 3 -->
+<nom>Duflot</nom>
+<prenom></prenom><!-- valeur par défaut "john"-->
+<age>43</age>
+<!-- ex 4 -->
+<nom>Duflot</nom>
+<prenom>Nicolas</prenom>
+<age></age> <!-- il n'y a pas de valeur par défaut pour l'age mais il n'est pas obligatoire -->
+
+<!-- 
+    valeurs contantes 
+    valeur inchangeable, imposée et non valide si la balise est vide
+-->
+<xsd:element name="status" type="xsd:string" fixed="Employé·e" />
+<!-- valide -->
+<status>Employé·e</status>
+<!-- invalide car valeur !== Employé·e -->
+<status>Junior</status>
+<!-- invalide parce que value === '' -->
+<status></status>
+
+<!-- 
+    Les attributs  
+    
+    Les attributs sont donc par essence des éléments simple, mais pour les déclarer 
+    nous n’utilisons pas le mot-clef element mais le mot clef attribute, 
+    qui sera évidemment précédé du namespace xsd:
+    
+    La déclaration d’un attribut possède deux attributs, nom et type (name & type)
+-->
+
+<!-- Déclaration de l'attribut personne de la balise suivante -->
+<personne type="physique"></personne>
+
+<xsd:attribute name="type" type="xsd:string" />
+<!-- mais personne est un élément complexe, nous verrons sa déclaration un peu plus tard -->
+
+<!-- Valeurs par défaut, obligatoire et inchangeables -->
+<!-- par défaut -->
+<xsd:attribute name="type" type="xsd:string" default="physique" />
+<!-- Constante -->
+<prix devise="euro">23.5</prix>
+<xsd:attribute name="devise" type="xsd:string" fixed="euro" />
+
+<!-- l'attribut type de personne doit être présent dans la balise -->
+<xsd:attribute name="type" type="xsd:string" use="required" />
+<!-- valide -->
+<personne type="physique"></personne>
+<!-- invalide -->
+<personne type=""></personne>
