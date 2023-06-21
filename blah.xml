@@ -786,8 +786,11 @@ Dublin Core
 
 
 <!-- déclaration globale d'éléments -->
+
 <xsd:element name="nom" type="xsd:string" />
 <xsd:element name="prenom" type="xsd:string" />
+
+<!-- passer le truc en groupe pour l'exemple -->
 
 <!-- déclaration de l'élément identité -->
 <xsd:element name="identite">
