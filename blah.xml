@@ -1063,12 +1063,12 @@ ____________________________________
     doit correspondre pour être valide 
 -->
 <xsd:element name="emailAddress">
-    <xs:simpleType>
-        <xs:restriction base="xs:token">
-            <xs:maxLength value="254"/>
-            <xs:pattern value="[_\-a-zA-Z0-9\.\+]+@[a-zA-Z0-9](\.?[\-a-zA-Z0-9]*[a-zA-Z0-9])*"/>
-        </xs:restriction>
-    </xs:simpleType>
+    <xsd:simpleType>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="254"/>
+            <xsd:pattern value="[_\-a-zA-Z0-9\.\+]+@[a-zA-Z0-9](\.?[\-a-zA-Z0-9]*[a-zA-Z0-9])*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 </xsd:element>
 
 <!-- forcer la première lettre en majuscule et les autres en minuscules ="[A-Z][a-z]+" -->
@@ -1231,3 +1231,8 @@ ____________________________________
         <xsd:field xpath="./cle_site"/>
     </xsd:keyref>
 </xsd:element>
+
+<!-- 
+    importer des définitions xsd dans un autre xsd pour avoir des librairies de type complexe prête à l'emploi
+    http://roger.neel.free.fr/langages/cours_htm/coursschema/xsd_import.html
+-->

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <!-- balises isolées enfants direct de personne -->
+    
+    <xsd:element name="nom" type="xsd:string"/>
+    <xsd:element name="prenom" type="xsd:string"/>
+
+    <!-- balises enfants directs d'adresse -->
+
+    <xsd:element name="numero" type="xsd:string"/>
+    <xsd:element name="voie">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                    <xsd:attribute name="type">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="impasse"/>
+                                <xsd:enumeration value="avenue"/>
+                                <xsd:enumeration value="rue"/>
+                                <xsd:enumeration value="route"/>
+                                <xsd:enumeration value="chemin"/>
+                                <xsd:enumeration value="place"/>
+                                <xsd:enumeration value="faubourg"/>
+                                <xsd:enumeration value="boulevard" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- pour pouvoir avoir des condition par exemple de restriction ou non sur une balise ou un attribut, par exemple si le pays est france un code postal n'a que 5 caractères (en tulisant par exemple la restriction pattern) il faut compléter avec schematron qui propose ce type d'action -->
+
+    <xsd:element name="codePostal" type="xsd:string"/>
+    <xsd:element name="ville" type="xsd:string"/>
+    <xsd:element name="pays" type="xsd:string"/>
+
+    <!-- balises enfants directs de telephones -->
+
+    <xsd:element name="telephone">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                    <xsd:attribute name="type">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="fixe"/>
+                                <xsd:enumeration value="bureau"/>
+                                <xsd:enumeration value="portable"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- balises enfants directs d'emails -->
+
+    <!-- 
+        avoir une restriction sur le format d'mail et l'ajouter à la restriction du contenu de l'attribut type
+    -->
+    <xsd:simpleType name="formatEmail">
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="254"/>
+            <xsd:pattern value="[_\-a-zA-Z0-9\.\+]+@[a-zA-Z0-9](\.?[\-a-zA-Z0-9]*[a-zA-Z0-9])*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="email">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="formatEmail">
+                    <xsd:attribute name="type">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="personnel"/>
+                                <xsd:enumeration value="professionnel"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- balise adresse -->
+
+    <xsd:element name="adresse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="numero" />
+                <xsd:element ref="voie" />
+                <xsd:element ref="codePostal" />
+                <xsd:element ref="ville" />
+                <xsd:element ref="pays" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- balise telephones -->
+
+    <xsd:element name="telephones">
+        <xsd:complexType>
+            <xsd:choice>
+                <xsd:element ref="telephone" maxOccurs="unbounded" />
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- balise emails -->
+
+    <xsd:element name="emails">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="email" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- balise personne -->
+    <xsd:element name="personne">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="nom" />
+                <xsd:element ref="prenom" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="adresse" />
+                <xsd:element ref="telephones" />
+                <xsd:element ref="emails" />                
+            </xsd:sequence>
+            <!-- définir l'attribut type -->
+            <xsd:attribute name="type">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="physique"/>
+                        <xsd:enumeration value="morale"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- balise racine repertoire -->
+
+    <xsd:element name="repertoire">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="personne" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
