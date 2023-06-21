@@ -49,6 +49,7 @@
                                 <xsd:enumeration value="fixe"/>
                                 <xsd:enumeration value="bureau"/>
                                 <xsd:enumeration value="portable"/>
+                                <xsd:enumeration value="professionnel"/>
                             </xsd:restriction>
                         </xsd:simpleType>
                     </xsd:attribute>

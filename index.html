@@ -3,9 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Parcourir un XML avec javascript</title>
+    <script src="./js/scripts.js"></script>
+    <script src="./js/readXml.js"></script>
 </head>
 <body>
-    
+    <main class="container">
+        <section class="row">
+            <article class="col-lg-4 col-md-6 col-sm-12">
+                <header>
+                    <h2>Récupérer le contenu d'un XML</h2>
+                </header>
+                <main>
+                    <p>
+
+                    </p>
+                    <button class="btn btn-outline-primary mb-1" data-action="readxml" data-xmlsource="./01-premier-xml.xml" data-target="xml-content" data-keyword="rolodex">
+                        Appeler fichier 01 premier XML
+                    </button>
+                    <button class="btn btn-outline-primary mb-1" data-action="readxml" data-xmlsource="./02-namespaces.xml" data-target="xml-content" data-keyword="book">
+                        Appeler fichier 02 namespaces XML
+                    </button>
+                    <button class="btn btn-outline-primary mb-1" data-action="readxml" data-xmlsource="./03-intro-dtd.xml" data-target="xml-content" data-keyword="rolodex">
+                        Appeler fichier 03 intro dtd XML
+                    </button>
+                    <button class="btn btn-outline-primary mb-1" data-action="readxml" data-xmlsource="./06-repertoire.xml" data-target="xml-content" data-keyword="repertoire">
+                        Appeler fichier 06 repertoire XML
+                    </button>
+                    <button class="btn btn-outline-primary mb-1" data-action="readxml" data-xmlsource="https://rss.nytimes.com/services/xml/rss/nyt/Movies.xml" data-target="xml-content" data-keyword="channel">
+                        NYT movie RSS 
+                    </button>
+                </main>
+                <footer>
+
+                </footer>
+            </article>
+            <article class="col-lg-8 col-md-6 col-sm-12">
+                <header>
+                    <h2>Le contenu du XML</h2>
+                </header>
+                <div>
+                    <button class="btn btn-outline-primary" data-action="resetxml" data-target="xml-content">
+                        reset xml
+                    </button>
+                </div>
+                <main class="xml-content">
+                    <div></div>
+                </main>
+            </article>
+        </section>
+    </main>
 </body>
 </html>
