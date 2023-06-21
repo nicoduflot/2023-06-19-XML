@@ -64,6 +64,7 @@ function parseXML(xmlData, html = '', userOptions = null){
                 }
                 html.appendChild(li);
             }
+            
             if (element.children.length !== 0) {
                 /* si le noeud a des enfants, on rappelle la fonction */
                 html.appendChild(parseXML(element, html));
