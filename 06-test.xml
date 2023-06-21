@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<annuaire xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="06-test.xsd">
+    <page numero="1" langue="US">
+        <titre>XML Schema</titre>
+        <lien>http://www.w3.org/XML/Schema/</lien>
+        <commentaire>
+      XML Schemas express shared vocabularies and allow machines
+      ...
+    </commentaire>
+        <cle_site>1</cle_site>
+    </page>
+    <page numero="2" langue="FR">
+        <titre>XML Schema tome 0 : Introduction</titre>
+        <lien>http://xmlfr.org/w3c/TR/xmlschema-0/</lien>
+        <commentaire>
+            Le tome 0 de la spécification XML Schema n'est qu'une introduction
+            ...
+        </commentaire>
+        <cle_site>1</cle_site>
+    </page>
+    <page numero="3" langue="FR">
+        <titre>XML Schema tome 1 : Structures</titre>
+        <lien>http://xmlfr.org/w3c/TR/xmlschema-1/</lien>
+        <commentaire>
+            XML Schema tome 1 : Structures est la spécification du langage
+            ...
+        </commentaire>
+        <cle_site>2</cle_site>
+    </page>
+    <page numero="4" langue="US">
+        <titre>XML Schema Part 2: Datatypes</titre>
+        <lien>http://www.w3.org/TR/2001/REC-xmlschema-2-20010502/</lien>
+        <commentaire>
+            XML Schema: Datatypes is part 2 of the specification of the XML
+            ...
+        </commentaire>
+        <cle_site>1</cle_site>
+    </page>
+    <site numero="1">
+        <nom>W3C</nom>
+        <url>http://www.w3.org/</url>
+    </site>
+    <site numero="2">
+        <nom>XMLfr</nom>
+        <url>http://www.xmlfr.org/</url>
+    </site>
+</annuaire>
